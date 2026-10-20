@@ -1,5 +1,7 @@
 name: check-hive
-on: workflow_dispatch
+on:
+  push:
+    branches: [check-hive]
 jobs:
   check:
     runs-on: ubuntu-latest
