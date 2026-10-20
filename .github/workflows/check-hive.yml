@@ -1,0 +1,13 @@
+name: check-hive
+on: workflow_dispatch
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install pyyaml
+      # As the scanner: build the image, then run the tests with no network.
+      - run: |
+          echo 'make test; echo "HIVE TESTS EXIT $?"' | python3 tools/check hive-terminal 2>&1 | tee check.log
+          grep -q "HIVE TESTS EXIT 0" check.log
